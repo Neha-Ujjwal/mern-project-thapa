@@ -1,8 +1,10 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const router = require("./router/auth-router.js");
+const authRouter = require("./router/auth-router.js");
+const contactRouter = require("./router/contact-router.js");
 const connectDB = require("./utility/db.js");
+const errorMiddleware = require("./middlewares/error-middleware.js");
 
 //middleware -> to use json data in our application whether we are accessing json data or
 // posting a request in json format we need to add this line
@@ -14,7 +16,9 @@ const connectDB = require("./utility/db.js");
 
 app.use(express.json());
 //mount the router  on /api/auth route
-app.use("/api/auth", router);
+app.use("/api/auth", authRouter);
+app.use("/api/form", contactRouter);
+app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
 
