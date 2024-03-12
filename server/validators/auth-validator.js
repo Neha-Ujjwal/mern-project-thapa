@@ -23,14 +23,14 @@ const signupSchema = z.object({
       required_error: "Phone is required",
     })
     .trim()
-    .min(10, { message: "Phone must be atleast 3 characters" })
-    .max(20, { message: "Phone must not be more than 20 characters" }),
+    .min(10, { message: "Phone must be atleast 10 digits" })
+    .max(20, { message: "Phone must not be more than 20 digits" }),
   password: z
     .string({
       required_error: "Password is required",
     })
     .trim()
-    .min(7, { message: "Password must be atleast 3 characters" })
+    .min(3, { message: "Password must be atleast 3 characters" })
     .max(1024, { message: "Password must not be more than 1024 characters" }),
 });
 
@@ -47,7 +47,7 @@ const loginSchema = z.object({
       required_error: "Password is required",
     })
     .trim()
-    .min(7, { message: "Password must be atleast 3 characters" })
+    .min(3, { message: "Password must be atleast 3 characters" })
     .max(1024, { message: "Password must not be more than 1024 characters" }),
 });
-module.exports = {signupSchema,loginSchema};
+module.exports = { signupSchema, loginSchema };

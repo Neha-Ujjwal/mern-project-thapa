@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const authRouter = require("./router/auth-router.js");
 const contactRouter = require("./router/contact-router.js");
 const connectDB = require("./utility/db.js");
@@ -14,13 +15,22 @@ const errorMiddleware = require("./middlewares/error-middleware.js");
 // that need to handle JSON data in the request body. This middleware is responsible for parsing JSON data from requests,
 // and it should be applied at the beginning of your middleware stack to ensure it's available for all subsequent route handlers.
 
+const corsOptions = {
+  origin: "http://localhost:5173/",
+  methods: "GET,POST,PUT,DELETE,PATCH,HEAD",
+  credentials: true,
+};
+app.use(cors());
+
 app.use(express.json());
+
 //mount the router  on /api/auth route
+
 app.use("/api/auth", authRouter);
 app.use("/api/form", contactRouter);
 app.use(errorMiddleware);
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 connectDB().then(() => {
   app.listen(PORT, () => {

@@ -2,8 +2,9 @@ const User = require("../models/user-model.js");
 const bcrypt = require("bcryptjs");
 
 const home = async (req, res) => {
+  
   try {
-    res.status(200).send("Welcome to the Home Page");
+    return res.status(200).send("Welcome to the Home Page");
   } catch (error) {
     console.log(error);
   }
@@ -30,13 +31,13 @@ const register = async (req, res) => {
       password,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       message: "Registration Successfull",
       token: await user.generateToken(),
       userId: user._id.toString(),
     });
   } catch (error) {
-    res.status(500).json({ message: "Error in registering user" });
+    return res.status(500).json({ message: "Error in registering user" });
   }
 };
 
@@ -51,6 +52,7 @@ const login = async (req, res) => {
     }
 
     const user = await isUserFound.comparePassword(password);
+
     if (user) {
       return res.status(200).json({
         message: "Login Successfull",
