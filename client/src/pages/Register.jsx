@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -9,6 +10,8 @@ const Register = () => {
     phone: "",
     password: "",
   });
+
+  const storeTokenInLS = useAuth();
 
   const handleInput = (e) => {
     let name = e.target.name;
@@ -37,7 +40,9 @@ const Register = () => {
         throw new Error("Failed to register"); // Throw an error if response is not okay
       }
 
-      const responseData = await response.json(); // Parse response data as JSON
+      const res_data = await response.json();
+      storeTokenInLS(res_data.token);
+
       setUser({
         username: "",
         email: "",
@@ -45,7 +50,7 @@ const Register = () => {
         password: "",
       });
       navigate("/login");
-      console.log("Registration successful:", responseData);
+      console.log("Registration successful:", res_data);
       // You can handle the response data here, such as redirecting the user or displaying a success message.
     } catch (error) {
       console.error("Registration failed:", error);

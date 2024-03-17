@@ -64,7 +64,7 @@ const Login = () => {
               </div>
 
               <div className="registration-form">
-                <h1 className="main-heading mb-3">registration form</h1>
+                <h1 className="main-heading mb-3">Login Form</h1>
                 <br />
 
                 <form onSubmit={handleSubmit}>
